@@ -12,9 +12,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/username/react-native-background-location-module"
+    "url": "git+ssh://git@github.com/fajarpancas/background-location-module.git"
   },
-  "author": "Nama Kamu",
+  "author": "Fajar Pancas",
   "license": "MIT",
   "peerDependencies": {
     "react": ">=17.0.0",
