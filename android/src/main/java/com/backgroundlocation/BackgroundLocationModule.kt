@@ -20,14 +20,12 @@ class BackgroundLocationModule(private val reactContext: ReactApplicationContext
 
     @RequiresApi(Build.VERSION_CODES.O)
     @ReactMethod
-    fun startTracking(baseURL: String, header: String, params: ReadableMap) {
+    fun startTracking(baseURL: String, header: String) {
         // Prevent multiple calls to startTracking if it's already running
 
-        val paramsString = params.toString()
         val intent = Intent(reactContext, BackgroundLocationService::class.java).apply {
             putExtra("baseURL", baseURL)
             putExtra("header", header)
-            putExtra("params", paramsString)
             // Add this to ensure service starts in foreground
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }

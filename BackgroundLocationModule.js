@@ -4,14 +4,12 @@ const { BackgroundLocationModule } = NativeModules;
 
 const LocationEventEmitter = new NativeEventEmitter(BackgroundLocationModule);
 
-const startTracking = (baseURL, header, params) => {
+const startTracking = (baseURL, header) => {
   if (!baseURL || !header) {
     throw new Error("Missing baseURL or header.");
   }
 
-  // Pastikan `params` adalah objek
-  const formattedParams = params || {};
-  BackgroundLocationModule.startTracking(baseURL, header, formattedParams);
+  BackgroundLocationModule.startTracking(baseURL, header);
 };
 
 const stopTracking = () => {

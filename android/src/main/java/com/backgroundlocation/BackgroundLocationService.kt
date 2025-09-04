@@ -1,6 +1,6 @@
 package com.backgroundlocation
 
-import com.weappagent.app.R 
+import com.backgroundlocation.R 
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -29,7 +29,6 @@ class BackgroundLocationService : Service() {
     private lateinit var locationRequest: LocationRequest
     private val client = OkHttpClient()
     private var apiBaseUrl: String? = null
-    private var additionalParams: Map<String, Any>? = null
     private lateinit var header: String
     private val failedRequests: MutableList<JSONObject> = mutableListOf() // List to hold failed requests
     private val NOTIFICATION_ID = 12345
@@ -85,11 +84,6 @@ class BackgroundLocationService : Service() {
         intent?.let {
             apiBaseUrl = it.getStringExtra("baseURL")
             header = it.getStringExtra("header") ?: ""
-
-            val paramsString = it.getStringExtra("params")
-            if (paramsString != null) {
-                additionalParams = parseParams(paramsString)
-            }
         }
         Log.d("BackgroundLocationService", "onStartCommand BLS")
 
@@ -129,9 +123,6 @@ class BackgroundLocationService : Service() {
                 put("latitude", latitude)
                 put("longitude", longitude)
                 put("timestamp", timestamp)  // Use 10-digit timestamp (in seconds)
-                additionalParams?.forEach { (key, value) ->
-                    put(key, value)
-                }
             })
         }
 
@@ -205,9 +196,6 @@ class BackgroundLocationService : Service() {
                 put("latitude", latitude)
                 put("longitude", longitude)
                 put("timestamp", timestamp)  // Retain timestamp (10-digit) from the failed request
-                additionalParams?.forEach { (key, value) ->
-                    put(key, value)
-                }
             })
         }
 
@@ -232,24 +220,6 @@ class BackgroundLocationService : Service() {
                 }
             }
         })
-    }
-
-    private fun parseParams(paramsString: String?): Map<String, Any> {
-        val map = mutableMapOf<String, Any>()
-        if (!paramsString.isNullOrEmpty()) {
-            try {
-                val jsonObject = JSONObject(paramsString)
-                val keys = jsonObject.keys()
-                while (keys.hasNext()) {
-                    val key = keys.next()
-                    val value = jsonObject.get(key)
-                    map[key] = value
-                }
-            } catch (e: Exception) {
-                Log.e("BackgroundLocationService", "Error parsing params: ${e.message}")
-            }
-        }
-        return map
     }
 
     override fun onBind(intent: Intent?): IBinder? {
