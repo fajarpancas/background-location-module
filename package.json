@@ -3,19 +3,29 @@
   "version": "1.0.0",
   "description": "React Native module for background location tracking on Android and iOS.",
   "main": "index.js",
+  "types": "index.d.ts",
   "keywords": [
     "react-native",
     "location",
     "background",
     "android",
-    "ios"
+    "ios",
+    "mobile"
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/fajarpancas/background-location-module.git"
+    "url": "git+https://github.com/fajarpancas/background-location-module.git"
   },
-  "author": "Fajar Pancas",
+  "author": {
+    "name": "Fajar Panca",
+    "email": "fajarpancas@gmail.com",
+    "url": "https://github.com/fajarpancas"
+  },
+  "homepage": "https://github.com/fajarpancas/background-location-module#readme",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fajarpancas/background-location-module/issues"
+  },
   "peerDependencies": {
     "react": ">=17.0.0",
     "react-native": ">=0.72.0"
